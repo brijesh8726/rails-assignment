@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<div class="todo-show">
+  <div class="todo-first">
+    <p class="todo-p">
+      <strong>Name:</strong>
+      <%= @todo.name %>
+    </p>
+    <% @tasks.each do |task| %>
+      <%  if task.done == true %>
+        <%= form_for task do |f| %>
+          <div class="sachin" >   
+            <strike>
+              <p><%= task.title %></p>
+            </strike>
+            <%= f.check_box :done, :value => task.done %>
+            <%= f.submit " undo" ,class:"btn btn-success" %>
+          </div>
+        <% end %>
+        <% elsif task.done == false %>
+          <%= form_for task do |f| %>
+            <div class="sachin" >
+              <p><%= task.title %></p>
+              <%= f.check_box :done, :value => task.done %>
+              <%= f.submit "done", class:"btn btn-primary" %>
+            </div>
+          <% end %>
+        <% end %>   
+      <% end %>
+      <br>
+      <%= form_for @task do |f| %>
+        <p><%= f.text_field :title,class:"form-field" %></p>
+        <%= f.hidden_field :done, :value => false %>
+        <%= f.hidden_field :todo_id,:value => @todo.id %>
+        <%= f.submit "Add Task", class:"btn btn-success"%>
+         <div class="d-flex mt-3">
+  <%= link_to 'Edit', edit_todo_path(@todo) ,class:"btn btn-primary"%> 
+  <%= link_to 'Back', todos_path ,class:"btn btn-dark"%>
+  </div>
+      <% end %>
+  </div>
+ 
+</div>
